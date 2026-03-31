@@ -30,7 +30,7 @@ class SupplyController extends AbstractEntityController
                 'supplier_name' => 'Поставщик',
                 'car_description' => 'Автомобиль (текст)',
                 'cost' => 'Стоимость',
-                'received_at' => 'Дата поступления (YYYY-MM-DD)',
+                'received_at' => 'Дата и время поступления',
                 'notes' => 'Примечание',
                 'status_id' => 'Статус',
             ],

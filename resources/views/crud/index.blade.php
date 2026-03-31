@@ -28,6 +28,8 @@
                                 {{ $item->client?->name ?? '—' }}
                             @elseif($col === 'vehicle_id')
                                 {{ $item->vehicle?->short_label ?? '—' }}
+                            @elseif(in_array($col, ['opened_at', 'started_at', 'received_at', 'sold_at'], true))
+                                {{ $item->{$col} ? $item->{$col}->timezone(config('app.timezone'))->format('d.m.Y H:i') : '—' }}
                             @else
                                 {{ $item->{$col} }}
                             @endif

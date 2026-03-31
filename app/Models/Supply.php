@@ -15,7 +15,7 @@ class Supply extends Model
     {
         return [
             'cost' => 'decimal:2',
-            'received_at' => 'date',
+            'received_at' => 'datetime',
         ];
     }
 

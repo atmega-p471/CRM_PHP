@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ServiceOrder extends Model
 {
@@ -11,7 +12,7 @@ class ServiceOrder extends Model
 
     protected function casts(): array
     {
-        return ['opened_at' => 'date'];
+        return ['opened_at' => 'datetime'];
     }
 
     public function status(): BelongsTo
@@ -27,5 +28,12 @@ class ServiceOrder extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function serviceItems(): BelongsToMany
+    {
+        return $this->belongsToMany(ServiceItem::class, 'service_order_service_item')
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 }

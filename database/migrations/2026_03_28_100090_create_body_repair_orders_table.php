@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('vehicle_id')->constrained('vehicles')->cascadeOnDelete();
             $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
             $table->text('description')->nullable();
-            $table->date('started_at');
+            $table->dateTime('started_at');
             $table->foreignId('status_id')->constrained('statuses');
             $table->timestamps();
         });

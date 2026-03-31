@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ServiceItem extends Model
 {
@@ -20,5 +21,12 @@ class ServiceItem extends Model
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function serviceOrders(): BelongsToMany
+    {
+        return $this->belongsToMany(ServiceOrder::class, 'service_order_service_item')
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 }

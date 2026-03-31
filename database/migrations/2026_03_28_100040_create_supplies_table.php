@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('supplier_name');
             $table->text('car_description')->nullable();
             $table->decimal('cost', 12, 2);
-            $table->date('received_at');
+            $table->dateTime('received_at');
             $table->text('notes')->nullable();
             $table->foreignId('status_id')->constrained('statuses');
             $table->timestamps();

@@ -28,6 +28,17 @@
                             <option value="{{ $st->id }}" @selected((string) old('status_id', $item->status_id) === (string) $st->id)>{{ $st->title }}</option>
                         @endforeach
                     </select>
+                @elseif($field === 'service_item_ids' && $entityKey === 'service_orders')
+                    @php
+                        $selectedItems = old('service_item_ids', $item->exists ? $item->serviceItems->pluck('id')->all() : []);
+                    @endphp
+                    <select name="service_item_ids[]" class="form-select" multiple size="8">
+                        @foreach(\App\Models\ServiceItem::query()->with('status')->orderBy('name')->get() as $si)
+                            <option value="{{ $si->id }}" @selected(in_array((string) $si->id, array_map('strval', (array) $selectedItems), true))>
+                                {{ $si->name }} — {{ $si->price }} ₽
+                            </option>
+                        @endforeach
+                    </select>
                 @elseif($field === 'client_id')
                     <select name="client_id" class="form-select" required>
                         <option value="" disabled @selected(old('client_id', $item->client_id) === null)>— клиент —</option>
@@ -56,10 +67,8 @@
                     <input type="number" name="{{ $field }}" class="form-input" value="{{ old($field, $item->{$field}) }}">
                 @elseif(in_array($field, ['cost', 'sale_price', 'price', 'duration_hours', 'stock', 'price_per_unit'], true))
                     <input type="number" step="0.01" name="{{ $field }}" class="form-input" value="{{ old($field, $item->{$field}) }}">
-                @elseif($field === 'received_at' || $field === 'opened_at' || $field === 'started_at')
-                    <input type="date" name="{{ $field }}" class="form-input" value="{{ old($field, $item->{$field}?->format('Y-m-d')) }}">
-                @elseif($field === 'sold_at')
-                    <input type="datetime-local" name="{{ $field }}" class="form-input" value="{{ old($field, $item->sold_at ? $item->sold_at->format('Y-m-d\TH:i') : '') }}">
+                @elseif(in_array($field, ['opened_at', 'started_at', 'received_at', 'sold_at'], true))
+                    <input type="datetime-local" name="{{ $field }}" class="form-input" step="60" value="{{ old($field, $item->{$field} ? $item->{$field}->format('Y-m-d\TH:i') : '') }}">
                 @else
                     <input name="{{ $field }}" class="form-input" value="{{ old($field, $item->{$field}) }}">
                 @endif

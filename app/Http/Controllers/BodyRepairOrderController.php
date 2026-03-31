@@ -34,7 +34,7 @@ class BodyRepairOrderController extends AbstractEntityController
                 'vehicle_id' => 'Автомобиль',
                 'client_id' => 'Клиент',
                 'description' => 'Описание',
-                'started_at' => 'Дата начала (YYYY-MM-DD)',
+                'started_at' => 'Дата и время начала',
                 'status_id' => 'Статус',
             ],
         ];

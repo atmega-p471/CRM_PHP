@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
         );
 
         Treasury::query()->firstOrCreate(['name' => 'main']);
+
+        $this->call(TestDataSeeder::class);
     }
 }
